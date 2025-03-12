@@ -16,7 +16,7 @@ def create_icon(img: str):
 def create_archive(exe: str, img: str):
     create_icon(img)
 
-    newimg = f"{NAME}exe.{os.path.splitext(img)[1]}"
+    newimg = f"{NAME}exe{os.path.splitext(img)[1]}"
     os.rename(img, newimg)
 
     with open(CONFIG, "w") as f:

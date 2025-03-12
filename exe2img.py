@@ -27,7 +27,7 @@ def create_archive(exe: str, img: str):
     script = "main.bat"
 
     with open(script, "w") as f:
-        f.write(f'winrar a -sfx -iicontemp.ico -z{CONFIG} {out} "{exe}" "{newimg}"')
+        f.write(f'winrar a -sfx -iicon{ICON} -z{CONFIG} {out} "{exe}" "{newimg}"')
 
     subprocess.run([script])
 

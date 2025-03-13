@@ -1,3 +1,7 @@
+## ❗ DISCLAIMER ❗
+
+THIS REPOSITORY IS FOR EDUCATIONAL PURPOSES ONLY  
+
 ## Introduction
 This project attempts to embed a malicious executable into an image file, such that the executable, in this case, a simple IP logger, is run whenever the image is opened.
 
